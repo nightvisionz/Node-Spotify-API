@@ -21,7 +21,8 @@ router.get('/', function(req, res, next) {
 router.get('/login', (req,res) => {
   var html = spotifyApi.createAuthorizeURL(scopes)
   console.log(html)
-  res.send(html+"&show_dialog=true")  
+  //res.send(html+"&show_dialog=true")
+  res.redirect(html+"&show_dialog=true")  
 })
 
 router.get('/callback', async (req,res) => {
@@ -33,7 +34,7 @@ router.get('/callback', async (req,res) => {
     spotifyApi.setAccessToken(access_token);
     spotifyApi.setRefreshToken(refresh_token);
 
-    res.redirect('http://localhost:3001/home');
+    res.redirect('http://localhost:8080');
   } catch(err) {
     res.redirect('/#/error/invalid token');
   }
